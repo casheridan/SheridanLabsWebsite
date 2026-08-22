@@ -1,11 +1,13 @@
 import Link from "next/link";
 
-export type NavKey = "home" | "products" | "services" | "about" | "contact";
+import { company } from "../content/site";
+
+export type NavKey = "home" | "products" | "approach" | "about" | "contact";
 
 const navItems: Array<[NavKey, string, string]> = [
   ["home", "Home", "/"],
   ["products", "Products", "/products"],
-  ["services", "Services", "/services"],
+  ["approach", "Approach", "/approach"],
   ["about", "About", "/about"],
   ["contact", "Contact", "/contact"],
 ];
@@ -29,7 +31,7 @@ export function Header({ active }: { active: NavKey }) {
             <Link className={active === key ? "active" : ""} href={href} key={key}>{label}</Link>
           ))}
         </nav>
-        <Link className="button button-primary header-cta" href="/contact">Get started</Link>
+        <Link className="button button-primary header-cta" href="/contact">Get in touch</Link>
         <details className="mobile-nav">
           <summary aria-label="Open navigation"><span />Menu</summary>
           <nav aria-label="Mobile navigation">
@@ -49,29 +51,23 @@ export function Footer() {
       <div className="shell footer-grid">
         <div className="footer-brand">
           <Brand inverse />
-          <p>Industrial precision through AI.</p>
+          <p>Software for work where a wrong answer is expensive.</p>
           <span>© 2026 Sheridan Labs. All rights reserved.</span>
         </div>
         <div className="footer-column">
           <strong>Explore</strong>
           <Link href="/products">Products</Link>
-          <Link href="/services">Services</Link>
+          <Link href="/approach">How we build</Link>
           <Link href="/about">Company</Link>
         </div>
         <div className="footer-column">
           <strong>Company</strong>
           <Link href="/about">Leadership</Link>
           <Link href="/contact">Contact</Link>
-          <a href="mailto:hello@sheridanlabs.ai">Support</a>
-        </div>
-        <div className="footer-column">
-          <strong>Legal</strong>
-          <a href="#privacy">Privacy policy</a>
-          <a href="#terms">Terms of service</a>
-          <a href="#cookies">Cookie policy</a>
+          <a href={`mailto:${company.email}`}>Email us</a>
         </div>
       </div>
-      <div className="shell footer-base"><span>USA / Global operations</span><span>System status: operational</span></div>
+      <div className="shell footer-base"><span>{company.location}</span><span>Founded {company.founded}</span></div>
     </footer>
   );
 }

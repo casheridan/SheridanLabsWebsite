@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Footer, Header, PageHero, SectionHeading, TechIcon } from "../components";
+import { company, contact, products } from "../../content/site";
 
 export const metadata: Metadata = {
-  title: "Contact Sheridan Labs",
-  description: "Talk with Sheridan Labs about industrial AI, edge devices, predictive maintenance, or custom software.",
+  title: "Contact",
+  description: "Questions about FaultNav, ControlTrail, a partnership, or selective custom development—contact both Sheridan Labs founders.",
 };
 
 export default function ContactPage() {
@@ -11,56 +12,47 @@ export default function ContactPage() {
     <>
       <Header active="contact" />
       <main>
-        <PageHero
-          eyebrow="Contact / Engineering intake"
-          title="Start with the operating problem."
-          body="Tell us where uptime, quality, safety, or latency is limiting performance. Our engineering team will help define a practical path forward."
-        >
-          <div className="contact-hero-diagram">
-            <div><span>01</span><strong>Signal</strong></div><i />
-            <div><span>02</span><strong>Model</strong></div><i />
-            <div><span>03</span><strong>Action</strong></div>
+        <PageHero eyebrow="Contact / Both founders" title={contact.headline} body={contact.body}>
+          <div className="contact-hero-diagram" aria-label="Ways to contact Sheridan Labs">
+            <div><span>Product</span><strong>FaultNav</strong></div><i />
+            <div><span>Product</span><strong>ControlTrail</strong></div><i />
+            <div><span>Selective</span><strong>Custom work</strong></div>
           </div>
         </PageHero>
 
         <section className="section shell contact-grid">
           <div className="contact-intro">
-            <SectionHeading eyebrow="Project inquiry" title="Speak with an engineer" body="Share the essential context. We use it to connect you with the right technical lead." />
-            <div className="contact-detail"><TechIcon symbol="@" /><div><span>Email</span><a href="mailto:hello@sheridanlabs.ai">hello@sheridanlabs.ai</a></div></div>
-            <div className="contact-detail"><TechIcon symbol="⌖" /><div><span>Operations</span><p>United States / Global programs</p></div></div>
-            <div className="contact-detail"><TechIcon symbol="◷" /><div><span>Initial response</span><p>Within two business days</p></div></div>
+            <SectionHeading eyebrow="Direct contact" title="This reaches both of us" body="Ask about either product, a partnership, or a difficult build where correctness matters." />
+            <div className="contact-detail"><TechIcon symbol="@" /><div><span>Email</span><a href={`mailto:${company.email}`}>{company.email}</a></div></div>
+            <div className="contact-detail"><TechIcon symbol="⌖" /><div><span>Location</span><p>{company.location}</p></div></div>
+            <div className="contact-detail"><TechIcon symbol="◷" /><div><span>Reply</span><p>Usually within a day or two</p></div></div>
           </div>
 
-          <form className="contact-form" action="mailto:hello@sheridanlabs.ai" method="post" encType="text/plain">
-            <div className="form-row">
-              <label>First name<input name="First name" autoComplete="given-name" required /></label>
-              <label>Last name<input name="Last name" autoComplete="family-name" required /></label>
-            </div>
-            <label>Work email<input type="email" name="Email" autoComplete="email" required /></label>
-            <label>Company<input name="Company" autoComplete="organization" required /></label>
-            <label>Area of interest
-              <select name="Area of interest" defaultValue="">
-                <option value="" disabled>Select a capability</option>
-                <option>Industrial AI implementation</option>
-                <option>Predictive maintenance</option>
-                <option>Edge AI hardware</option>
-                <option>Automotive software</option>
-                <option>Machine vision</option>
+          <form className="contact-form" action={`mailto:${company.email}`} method="post" encType="text/plain">
+            <label>Name<input name="Name" autoComplete="name" required /></label>
+            <label>Email<input type="email" name="Email" autoComplete="email" required /></label>
+            <label>What is this about?
+              <select name="Topic" defaultValue="">
+                <option value="" disabled>Select a topic</option>
+                {products.map((product) => <option key={product.name}>{product.name}</option>)}
+                <option>Partnership</option>
+                <option>Selective custom development</option>
+                <option>Something else</option>
               </select>
             </label>
-            <label>What operating problem are you solving?<textarea name="Project context" rows={5} required /></label>
-            <button className="button button-primary" type="submit">Send project brief</button>
-            <p className="form-note">Submitting opens your email client with this project brief.</p>
+            <label>What’s on your mind?<textarea name="Message" rows={6} required /></label>
+            <button className="button button-primary" type="submit">Open email draft</button>
+            <p className="form-note">Submitting opens your email client with the details above. Nothing is stored by this website.</p>
           </form>
         </section>
 
         <section className="section section-muted">
           <div className="shell">
-            <SectionHeading eyebrow="How it begins" title="A focused first conversation" align="center" />
+            <SectionHeading eyebrow="Reasons to write" title="Products, partnerships, and selective custom work" align="center" />
             <div className="three-up contact-steps">
-              <article><span>01</span><h3>Context</h3><p>We understand the asset, environment, constraint, and desired outcome.</p></article>
-              <article><span>02</span><h3>Feasibility</h3><p>We assess data, integration paths, risks, and where a pilot can prove value.</p></article>
-              <article><span>03</span><h3>Plan</h3><p>You receive a clear technical next step, with success criteria and ownership.</p></article>
+              <article><span>Products</span><h3>FaultNav or ControlTrail</h3><p>Questions about either product reach the people building it.</p></article>
+              <article><span>Partnerships</span><h3>Work with Sheridan Labs</h3><p>Tell us what you have in mind and where our products or experience may fit.</p></article>
+              <article><span>Custom development</span><h3>Hard problems only</h3><p>{contact.customNote}</p></article>
             </div>
           </div>
         </section>

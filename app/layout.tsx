@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { hero } from "../content/site";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 const jetBrainsMono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"], display: "swap" });
@@ -10,19 +11,19 @@ const siteUrl = configuredHost.startsWith("http") ? configuredHost : `https://${
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: "Sheridan Labs", template: "%s" },
-  description: "Industrial precision through AI.",
+  title: { default: "Sheridan Labs | Software for Exacting Technical Work", template: "%s | Sheridan Labs" },
+  description: hero.standfirst,
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   openGraph: {
-    title: "Sheridan Labs | Industrial Precision Through AI",
-    description: "Reliable intelligence for the systems that keep industry moving.",
+    title: "Sheridan Labs | Software for Exacting Technical Work",
+    description: hero.standfirst,
     type: "website",
-    images: [{ url: new URL("/og.png", siteUrl), width: 1733, height: 910, alt: "Sheridan Labs — Industrial Precision Through AI" }],
+    images: [{ url: new URL("/og.png", siteUrl), width: 1731, height: 909, alt: "Sheridan Labs — Software for work where a wrong answer is expensive" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sheridan Labs | Industrial Precision Through AI",
-    description: "Reliable intelligence for the systems that keep industry moving.",
+    title: "Sheridan Labs | Software for Exacting Technical Work",
+    description: hero.standfirst,
     images: [new URL("/og.png", siteUrl)],
   },
 };

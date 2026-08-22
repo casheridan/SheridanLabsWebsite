@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer, Header, ReferenceImage, SectionHeading, TechIcon } from "./components";
+import { about, contact, hero, principles, products } from "../content/site";
 
 export const metadata: Metadata = {
-  title: "Precision AI for Industrial Excellence",
-  description:
-    "Industrial AI systems, edge hardware, and engineering services built for high-stakes operations.",
+  title: "Software for Exacting Technical Work",
+  description: hero.standfirst,
 };
-
-const metrics = [
-  ["99.9%", "Uptime reliability"],
-  ["<50ms", "Inference latency"],
-  ["12M+", "Sensors monitored"],
-  ["Tier 1", "Automotive partner"],
-];
 
 export default function Home() {
   return (
@@ -23,23 +16,20 @@ export default function Home() {
         <section className="home-hero">
           <div className="shell home-hero-grid">
             <div className="hero-copy">
-              <div className="status-chip"><span /> System status: optimal</div>
-              <p className="eyebrow">Industrial intelligence / 01</p>
-              <h1>Precision AI for industrial excellence.</h1>
-              <p className="hero-lede">
-                Sheridan Labs engineers dependable artificial intelligence for heavy industry and
-                automotive systems—where every signal, decision, and millisecond matters.
-              </p>
+              <div className="status-chip"><span /> Founded in Kansas City · 2026</div>
+              <p className="eyebrow">{hero.eyebrow}</p>
+              <h1>{hero.headline}</h1>
+              <p className="hero-lede">{hero.standfirst}</p>
               <div className="button-row">
-                <Link className="button button-primary" href="/services">Explore solutions</Link>
-                <Link className="button button-secondary" href="/contact">Contact engineering</Link>
+                <Link className="button button-primary" href="/products">See our products</Link>
+                <Link className="button button-secondary" href="/contact">Contact us</Link>
               </div>
             </div>
             <div className="hero-visual-wrap">
               <ReferenceImage className="crop-home-hero" label="Automated industrial robotics laboratory" />
-              <div className="visual-hud visual-hud-top"><span className="live-dot" /> Live plant model</div>
+              <div className="visual-hud visual-hud-top">Sheridan Labs / Kansas City</div>
               <div className="visual-hud visual-hud-bottom">
-                <span>Cell 04</span><strong>98.7%</strong><small>model confidence</small>
+                <span>Software product company</span><strong>2</strong><small>owned products</small>
               </div>
               <div className="corner-mark corner-mark-a" />
               <div className="corner-mark corner-mark-b" />
@@ -50,21 +40,14 @@ export default function Home() {
         <section className="section shell">
           <div className="innovation-grid">
             <div className="innovation-copy">
-              <SectionHeading
-                eyebrow="Operating principle"
-                title="Stability through innovation"
-                body="In high-stakes environments, uncertainty is not an option. We unite physical infrastructure with cognitive systems to make operations safer, more reliable, and measurably more productive."
-              />
-              <p>
-                Our models are framed by systematic precision and deployed close to the work—keeping
-                critical interfaces legible, fast, and dependable under real operating pressure.
-              </p>
-              <Link className="text-link" href="/about">How we engineer reliability <span>→</span></Link>
+              <SectionHeading eyebrow="Who we are" title="A software product company." body={about.identity} />
+              <p>{about.note}</p>
+              <Link className="text-link" href="/about">Meet the founders <span>→</span></Link>
             </div>
             <div className="metric-grid">
-              {metrics.map(([value, label]) => (
-                <article className="metric-card" key={label}>
-                  <strong>{value}</strong><span>{label}</span>
+              {products.map((product) => (
+                <article className="metric-card" key={product.name}>
+                  <strong>{product.name}</strong><span>{product.domain}</span>
                 </article>
               ))}
             </div>
@@ -73,54 +56,30 @@ export default function Home() {
 
         <section className="section section-muted">
           <div className="shell">
-            <SectionHeading
-              eyebrow="Our expertise"
-              title="Advanced AI devices & services"
-              body="A connected portfolio built from the factory floor outward."
-            />
+            <SectionHeading eyebrow="Products" title="What we’re building." body="Two products for exacting technical work in two very different markets." />
             <div className="expertise-grid">
-              <article className="feature-card feature-card-wide">
-                <div className="card-topline"><TechIcon symbol="▦" /><span>Hardware / Edge</span></div>
-                <div>
-                  <h3>Edge processing units</h3>
-                  <p>Industrial compute designed for extreme environments, delivering local inference with no cloud dependency.</p>
-                </div>
-                <Link className="text-link" href="/products">View hardware <span>→</span></Link>
-              </article>
-              <article className="feature-card">
-                <div className="card-topline"><TechIcon symbol="⌁" /><span>Service / Predict</span></div>
-                <div>
-                  <h3>Predictive maintenance</h3>
-                  <p>Forecast failure before it occurs and turn unplanned downtime into scheduled action.</p>
-                </div>
-                <Link className="text-link" href="/services">View service <span>→</span></Link>
-              </article>
-              <article className="feature-card">
-                <div className="card-topline"><TechIcon symbol="◎" /><span>Vision / Inspect</span></div>
-                <div>
-                  <h3>Autonomous quality control</h3>
-                  <p>Machine vision systems capable of finding microscopic defects at production-line speed.</p>
-                </div>
-                <Link className="text-link" href="/products">View devices <span>→</span></Link>
-              </article>
-              <article className="feature-card feature-card-visual">
-                <div className="analytics-copy">
-                  <div className="card-topline"><TechIcon symbol="⌬" /><span>Analytics / Live</span></div>
-                  <h3>Fleet telemetry analytics</h3>
-                  <p>Real-time operational intelligence across factories, fleets, and autonomous logistics.</p>
-                  <Link className="text-link" href="/services">Explore analytics <span>→</span></Link>
-                </div>
-                <ReferenceImage className="crop-home-analytics" label="Industrial fleet analytics dashboard" />
-              </article>
+              {products.map((product, index) => (
+                <article className={`feature-card${index === 0 ? " feature-card-wide" : ""}`} key={product.name}>
+                  <div className="card-topline"><TechIcon symbol={product.index} /><span>{product.domain}</span></div>
+                  <div><h3>{product.name}</h3><p>{product.summary}</p></div>
+                  <p>{product.detail}</p>
+                </article>
+              ))}
             </div>
+            <div className="section-action"><Link className="text-link" href="/products">Read the product details <span>→</span></Link></div>
           </div>
         </section>
 
         <section className="cta-band">
           <div className="shell cta-grid">
-            <div><p className="eyebrow eyebrow-light">Start a technical conversation</p><h2>Build reliability into every decision.</h2></div>
-            <Link className="button button-light" href="/contact">Talk to our engineers</Link>
+            <div><p className="eyebrow eyebrow-light">How we build</p><h2>{principles[1].title}</h2><p className="cta-copy">{principles[1].body}</p></div>
+            <Link className="button button-light" href="/approach">Why correctness matters</Link>
           </div>
+        </section>
+
+        <section className="section shell centered-cta">
+          <SectionHeading eyebrow="Contact" title={contact.headline} body={contact.body} align="center" />
+          <Link className="button button-primary" href="/contact">Get in touch</Link>
         </section>
       </main>
       <Footer />

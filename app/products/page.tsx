@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Footer, Header, PageHero, ReferenceImage, SectionHeading, TechIcon } from "../components";
+import { Footer, Header, PageHero, SectionHeading, TechIcon } from "../components";
+import { principles, products } from "../../content/site";
 
 export const metadata: Metadata = {
-  title: "Industrial AI Devices",
-  description: "Rugged edge compute, telemetry, connectivity, and machine vision hardware for industry.",
+  title: "Products",
+  description: "FaultNav and ControlTrail: software for exacting technical work where a wrong answer is expensive.",
 };
 
-const compactProducts = [
-  { label: "Sensor node", title: "Vibration Telemetry Node", code: "VTN-42", icon: "⌁", body: "Continuous high-frequency monitoring of rotational equipment health." },
-  { label: "Gateway", title: "Industrial 5G Gateway", code: "NET-5G", icon: "⌂", body: "Ultra-low-latency data transfer from sensor networks to edge processors." },
-];
+const boundaries = {
+  FaultNav: "The AI orders the path. Licensed manufacturer data defines what test results mean.",
+  ControlTrail: "The operational system of record underneath a customer’s SSP—not a certifying body.",
+} as const;
 
 export default function ProductsPage() {
   return (
@@ -18,70 +19,52 @@ export default function ProductsPage() {
       <Header active="products" />
       <main>
         <PageHero
-          eyebrow="Hardware division / Product platform"
-          title="Industrial AI devices"
-          body="Precision-engineered hardware for seamless sensor integration and high-performance edge computing in demanding industrial environments."
+          eyebrow="Products / Sheridan Labs"
+          title="What we’re building."
+          body="Two owned software products for exacting technical work. They serve different markets, but both are built around authoritative sources and explicit boundaries."
         >
-          <div className="device-schematic" aria-label="Edge AI processor module diagram">
-            <span className="schematic-label label-a">SL / CORE</span>
-            <span className="schematic-label label-b">24 TOPS</span>
-            <div className="chip-body"><i /><i /><i /><i /><strong>AI</strong></div>
+          <div className="device-schematic" aria-label="Sheridan Labs product system diagram">
+            <span className="schematic-label label-a">FaultNav</span>
+            <span className="schematic-label label-b">ControlTrail</span>
+            <div className="chip-body"><i /><i /><i /><i /><strong>SL</strong></div>
             <span className="scan-line" />
           </div>
         </PageHero>
 
-        <section className="section shell product-showcase">
-          <article className="product-feature">
-            <div className="product-photo-wrap">
-              <ReferenceImage className="crop-products-server" label="Industrial edge server installed in a factory" />
-              <span className="live-badge"><i /> Live AI</span>
-            </div>
-            <div className="product-feature-copy">
-              <div><p className="eyebrow">Flagship edge server</p><span className="product-code">MOD-01A</span></div>
-              <h2>SL-Nexus Edge Server</h2>
-              <p>High-density localized processing for real-time factory-floor intelligence, with redundant neural cores and reinforced industrial casing.</p>
-              <div className="spec-row"><span>24 TOPS</span><span>IP65</span><span>-20—70°C</span></div>
-              <Link className="text-link" href="/contact">Request specifications <span>→</span></Link>
-            </div>
-          </article>
-
-          <div className="product-side-stack">
-            {compactProducts.map((product) => (
-              <article className="compact-product" key={product.code}>
-                <div className="compact-product-icon"><TechIcon symbol={product.icon} /><span>{product.code}</span></div>
-                <p className="eyebrow">{product.label}</p>
-                <h3>{product.title}</h3>
-                <p>{product.body}</p>
-                <Link className="text-link" href="/contact">Details <span>→</span></Link>
+        <section className="section shell">
+          <SectionHeading eyebrow="Owned products" title="Built for work where correctness matters" body="The company site names both products without making availability claims. Each product will speak to its own market on its own property." />
+          <div className="owned-products-grid">
+            {products.map((product) => (
+              <article className="owned-product-card" id={`product-${product.name.toLowerCase()}`} key={product.name}>
+                <div className="card-topline"><TechIcon symbol={product.index} /><span>{product.domain}</span></div>
+                <h2>{product.name}</h2>
+                <p className="owned-product-summary">{product.summary}</p>
+                <div className="product-boundary"><span>Design boundary</span><p>{boundaries[product.name]}</p></div>
+                <p className="owned-product-detail">{product.detail}</p>
               </article>
             ))}
           </div>
         </section>
 
         <section className="section section-muted">
-          <div className="shell vision-feature">
-            <ReferenceImage className="crop-products-vision" label="Precision machine vision equipment" />
-            <div className="vision-feature-copy">
-              <p className="eyebrow">Optical intelligence / VIS-800X</p>
-              <h2>Precision Vision Array</h2>
-              <p>Embedded AI inspection for defect detection at full line speed. Autonomous processing keeps quality decisions local, repeatable, and traceable.</p>
-              <ul className="check-list">
-                <li>Sub-millimeter optical accuracy</li>
-                <li>Multi-spectrum sensor fusion</li>
-                <li>Inline quality reporting</li>
-              </ul>
-              <Link className="button button-primary" href="/contact">Configure a system</Link>
+          <div className="shell product-market-layout">
+            <SectionHeading eyebrow="Company structure" title="Separate markets. Shared standards." body="FaultNav serves automotive technicians. ControlTrail serves contractors in the Defense Industrial Base. Their audiences do not overlap, so each product gets its own language while Sheridan Labs remains the company behind both." />
+            <div className="product-market-list">
+              {products.map((product) => (
+                <article key={product.name}><span>{product.domain}</span><h3>{product.name}</h3><p>{product.detail}</p></article>
+              ))}
             </div>
           </div>
         </section>
 
         <section className="section shell">
-          <SectionHeading eyebrow="Platform standard" title="Designed as one connected system" body="Every Sheridan Labs device shares the same deployment, monitoring, and security foundation." align="center" />
+          <SectionHeading eyebrow="Shared engineering discipline" title="The same constraints follow both products" align="center" />
           <div className="three-up">
-            <article className="mini-feature"><TechIcon symbol="◇" /><h3>Rugged by design</h3><p>Built for vibration, temperature, dust, and round-the-clock operation.</p></article>
-            <article className="mini-feature"><TechIcon symbol="⌬" /><h3>Fleet managed</h3><p>Unified telemetry, health reporting, and secure remote configuration.</p></article>
-            <article className="mini-feature"><TechIcon symbol="↯" /><h3>Instant inference</h3><p>Decisions happen at the edge without introducing a cloud round trip.</p></article>
+            {principles.slice(0, 3).map((principle) => (
+              <article className="mini-feature" key={principle.index}><TechIcon symbol={principle.index} /><h3>{principle.title}</h3><p>{principle.body}</p></article>
+            ))}
           </div>
+          <div className="section-action section-action-center"><Link className="button button-primary" href="/approach">Read how we build</Link></div>
         </section>
       </main>
       <Footer />

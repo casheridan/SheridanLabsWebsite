@@ -14,12 +14,14 @@ async function render(pathname = "/") {
 }
 
 const pages = [
-  ["/", /Precision AI for industrial excellence/i],
-  ["/products", /Industrial AI devices/i],
-  ["/services", /Industrial precision services/i],
-  ["/about", /Industrial precision through AI/i],
-  ["/contact", /Start with the operating problem/i],
+  ["/", /Software for work where a wrong answer is expensive/i],
+  ["/products", /What we’re building/i],
+  ["/approach", /We don’t let software guess/i],
+  ["/about", /Two founders\. One standard for correctness/i],
+  ["/contact", /Tell us what you’re working on/i],
 ];
+
+const unsupportedClaims = /99\.9%|50ms|12M\+|Tier 1|SL-Nexus|Vibration Telemetry|Industrial 5G|Precision Vision|Predictive Maintenance|Fleet Telemetry/i;
 
 for (const [pathname, expected] of pages) {
   test(`server-renders ${pathname}`, async () => {
@@ -30,5 +32,11 @@ for (const [pathname, expected] of pages) {
     assert.match(html, expected);
     assert.match(html, /Sheridan Labs/i);
     assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
+    assert.doesNotMatch(html, unsupportedClaims);
   });
 }
+
+test("the superseded services route is removed", async () => {
+  const response = await render("/services");
+  assert.equal(response.status, 404);
+});

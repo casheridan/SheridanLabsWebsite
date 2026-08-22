@@ -1,79 +1,62 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer, Header, PageHero, ReferenceImage, SectionHeading, TechIcon } from "../components";
+import { about, company, contact, founders, products } from "../../content/site";
 
 export const metadata: Metadata = {
-  title: "About Sheridan Labs",
-  description: "Meet the engineering company building reliable intelligence for high-stakes industrial systems.",
+  title: "About",
+  description: "Sheridan Labs is a father-and-son software product company founded in Kansas City by Mark and Christian Sheridan.",
 };
-
-const leaders = [
-  {
-    name: "Christian Sheridan",
-    title: "Founder & Automation Engineer",
-    bio: "Industrial automation programmer focused on robotics, smart manufacturing, and practical software systems that connect directly to the production floor.",
-    image: "/team/christian-sheridan.jpg",
-    imageClass: "leader-photo-christian",
-    linkedin: "https://www.linkedin.com/in/christian-sheridan",
-  },
-  {
-    name: "Mark Sheridan",
-    title: "Technology & Platform Advisor",
-    bio: "Technology leader with more than 25 years of experience in platform development, modernization, client delivery, and dependable software operations.",
-    image: "/team/mark-sheridan.jpg",
-    imageClass: "leader-photo-mark",
-    linkedin: "https://www.linkedin.com/in/mark-sheridan-86879b4a",
-  },
-];
 
 export default function AboutPage() {
   return (
     <>
       <Header active="about" />
       <main>
-        <PageHero
-          eyebrow="Company / Engineering heritage"
-          title="Industrial precision through AI."
-          body="Sheridan Labs bridges heavy engineering heritage and advanced artificial intelligence, building robust systems for environments where reliability is the requirement—not the aspiration."
-        >
+        <PageHero eyebrow="Company / Kansas City, Missouri" title="Two founders. One standard for correctness." body={`${about.note} ${about.identity}`}>
           <div className="about-hero-image">
-            <ReferenceImage className="crop-about-hero" label="AI-powered industrial engineering facility" />
-            <div className="about-hero-overlay"><span>Plant intelligence</span><strong>Operational</strong><small><i />Live</small></div>
+            <ReferenceImage className="crop-about-hero" label="Industrial engineering and software environment" />
+            <div className="about-hero-overlay"><span>Sheridan Labs</span><strong>{company.location}</strong><small>Founded {company.founded}</small></div>
           </div>
         </PageHero>
 
         <section className="section section-muted">
           <div className="shell">
-            <SectionHeading eyebrow="Our foundation" title="Engineering rigor, expanded" body="Rooted in systematic precision and an uncompromising commitment to reliability." />
+            <SectionHeading eyebrow="Our foundation" title="A product company, not an agency" body="We build and own our software products. Selective custom development remains available, but it is not the company’s primary identity." />
             <div className="foundation-grid">
               <article className="foundation-story">
-                <p className="eyebrow">History / Built from the floor up</p>
-                <h2>Decades of engineering excellence</h2>
-                <p>Sheridan Labs began with one question: could industrial failure be understood early enough to prevent it? That founding discipline now informs every device, model, and deployment we build.</p>
-                <ReferenceImage className="crop-about-history" label="Sheridan Labs engineering history and modern data systems" />
+                <p className="eyebrow">What we make</p>
+                <h2>Products for exacting technical work</h2>
+                <p>FaultNav and ControlTrail serve unrelated markets, but both are designed for work where a plausible answer is not good enough.</p>
+                <div className="about-product-list">
+                  {products.map((product) => <div key={product.name}><span>{product.domain}</span><strong>{product.name}</strong></div>)}
+                </div>
               </article>
               <article className="foundation-vision">
-                <p className="eyebrow">Vision / 2035</p>
-                <h2>Autonomous reliability</h2>
-                <p>We envision industrial systems that continuously understand their own condition, adapt safely, and remove preventable downtime from critical operations.</p>
-                <div className="vision-signal"><TechIcon symbol="◎" /><span>AI integration</span></div>
+                <p className="eyebrow">Custom development / Secondary</p>
+                <h2>Selective by design</h2>
+                <p>{contact.customNote}</p>
+                <div className="vision-signal"><TechIcon symbol="◇" /><span>Correctness matters</span></div>
               </article>
             </div>
           </div>
         </section>
 
         <section className="section shell">
-          <SectionHeading eyebrow="Leadership" title="Built by engineers who know the work" body="Industrial automation experience and long-term platform leadership, united around practical, dependable systems." align="center" />
+          <SectionHeading eyebrow="Founders" title="Father, son, co-founders" body="Both founders work across the business and the technology. Their roles overlap, with each naturally spending more time in different parts of the work." align="center" />
           <div className="leadership-grid">
-            {leaders.map((leader) => (
-              <article className="leader-card" key={leader.name}>
-                <img className={`leader-photo ${leader.imageClass}`} src={leader.image} alt={`${leader.name}, ${leader.title}`} width="900" height="1000" loading="lazy" />
+            {founders.map((founder) => (
+              <article className="leader-card" key={founder.name}>
+                <img className={`leader-photo ${founder.name.startsWith("Christian") ? "leader-photo-christian" : "leader-photo-mark"}`} src={founder.photo} alt={`${founder.name}, ${founder.role}`} width="900" height="1000" loading="lazy" />
                 <div className="leader-card-copy">
-                  <p className="eyebrow">Leadership / Sheridan Labs</p>
-                  <h3>{leader.name}</h3>
-                  <strong>{leader.title}</strong>
-                  <p>{leader.bio}</p>
-                  <a className="text-link" href={leader.linkedin} target="_blank" rel="noreferrer">LinkedIn profile <span>↗</span></a>
+                  <p className="eyebrow">Co-founder</p>
+                  <h3>{founder.name}</h3>
+                  <strong>{founder.role}</strong>
+                  <p>{founder.bio}</p>
+                  <div className="founder-links">
+                    <a className="text-link" href={founder.links.linkedin} target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
+                    <a className="text-link" href={founder.links.github} target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+                  </div>
                 </div>
               </article>
             ))}
@@ -82,18 +65,18 @@ export default function AboutPage() {
 
         <section className="values-section">
           <div className="shell values-grid">
-            <div><p className="eyebrow eyebrow-light">What guides us</p><h2>Precision is a way of working.</h2></div>
+            <div><p className="eyebrow eyebrow-light">How we work</p><h2>Shared work. Different areas of emphasis.</h2></div>
             <div className="value-list">
-              <article><strong>01</strong><div><h3>Evidence over assumption</h3><p>We measure, validate, and communicate what the system actually knows.</p></div></article>
-              <article><strong>02</strong><div><h3>Reliability by design</h3><p>Safety and resilience are architectural decisions from day one.</p></div></article>
-              <article><strong>03</strong><div><h3>Partnership on the floor</h3><p>We design with the operators and engineers who keep production moving.</p></div></article>
+              <article><strong>Mark</strong><div><h3>AI and software development</h3><p>Mark works across the business and technology. His emphasis is AI, software architecture, platform engineering, and building the systems behind our products.</p></div></article>
+              <article><strong>Christian</strong><div><h3>Devices, infrastructure, and product experience</h3><p>Christian is an industrial automation programmer focused on robotics, smart manufacturing, and practical software systems that connect directly to the production floor. His emphasis at Sheridan Labs is physical devices, infrastructure, UI/UX, and product integration.</p></div></article>
+              <article><strong>Together</strong><div><h3>One team, overlapping roles</h3><p>The split is not rigid. Both founders contribute to the products, software, technical direction, and business.</p></div></article>
             </div>
           </div>
         </section>
 
         <section className="section shell centered-cta">
-          <SectionHeading eyebrow="Work with us" title="Bring intelligence closer to the work" body="Explore a partnership with an engineering team fluent in both physical systems and applied AI." align="center" />
-          <Link className="button button-primary" href="/contact">Meet with our team</Link>
+          <SectionHeading eyebrow="Contact" title={contact.headline} body={contact.body} align="center" />
+          <Link className="button button-primary" href="/contact">Contact both founders</Link>
         </section>
       </main>
       <Footer />
